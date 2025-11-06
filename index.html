@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Treinamento ISO 9001:2015 - R&R Contas</title>
+    <!-- Carrega Tailwind CSS para um design corporativo moderno e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        :root {
+            --color-primary: #0A3D62; /* Azul escuro corporativo */
+            --color-secondary: #0077B6; /* Azul de destaque */
+            --color-text: #333333; /* Cinza escuro para texto */
+            --color-light-gray: #F4F4F9; /* Cinza muito claro para fundo sutil */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-light-gray);
+            overflow: hidden; /* Evita scroll desnecessário */
+        }
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            /* Garante que o conteúdo não deslize para fora da tela */
+        }
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out; /* Transição suave */
+            padding: 4rem; /* Padding geral para o slide */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Layout do conteúdo do slide */
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0;
+        }
+
+        /* Estilo da Tabela */
+        .table-responsive {
+            overflow-x: auto;
+            max-height: 500px; /* Limita a altura da tabela */
+        }
+        .training-table th, .training-table td {
+            padding: 0.75rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .training-table th {
+            background-color: var(--color-light-gray);
+            font-weight: 600;
+            color: var(--color-primary);
+            position: sticky;
+            top: 0;
+        }
+
+        /* Estilos específicos para a capa */
+        #slide-0 {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #364f6b 100%);
+            color: white;
+            justify-content: center;
+        }
+        #slide-0 .logo-placeholder {
+            border: 4px solid white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.5rem;
+        }
+
+        /* Estilo de Destaque para Política da Qualidade */
+        .quality-policy-box {
+            background-color: #E6F0F6; /* Azul muito claro */
+            border-left: 6px solid var(--color-secondary);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        .policy-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        /* Rodapé fixo */
+        #footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0A3D62; /* Azul Escuro */
+            color: white;
+            padding: 0.5rem 2rem;
+            font-size: 0.875rem;
+            z-index: 100;
+        }
+
+        /* Ícone SVG (usando Lucide Icons style) */
+        .icon {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .icon-lg {
+            width: 2.5em;
+            height: 2.5em;
+            margin-right: 0.5rem;
+        }
+
+        /* Elementos interativos (opcional) - Setas de navegação */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            cursor: pointer;
+            padding: 1rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .nav-arrow:hover {
+            opacity: 1;
+        }
+        #prev-slide { left: 1rem; }
+        #next-slide { right: 1rem; }
+
+        /* Estilo para listas numeradas e não numeradas */
+        .list-style-decimal li {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .list-style-disc li {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Media Queries para responsividade em telas menores (mobile/tablet) */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1rem;
+            }
+            .slide-content {
+                padding: 1rem 0;
+            }
+            h1 {
+                font-size: 2rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+            .text-2xl {
+                font-size: 1.25rem;
+            }
+            .policy-text {
+                font-size: 1rem;
+            }
+            .nav-arrow {
+                padding: 0.5rem;
+                width: 30px;
+                height: 30px;
+            }
+            #footer {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ícone Reutilizável de Confirmação (Check-Circle) -->
+    <svg id="icon-check" class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+
+    <!-- Ícone Reutilizável de Target (Objetivo) -->
+    <svg id="icon-target" class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+    </svg>
+
+    <!-- Ícone Reutilizável de Usuários (Público) -->
+    <svg id="icon-users" class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+
+    <!-- Container Principal dos Slides -->
+    <div class="slide-container" id="presentation-container">
+
+        <!-- SLIDE 0: Capa -->
+        <section id="slide-0" class="slide active" data-title="Capa">
+            <div class="flex flex-col items-center justify-center text-center p-8 rounded-lg">
+                <!-- Logo PlaceHolder -->
+                <div class="logo-placeholder bg-white text-gray-800 font-bold mb-8 shadow-lg">
+                    R&R CONTAS
+                </div>
+                <h1 class="text-6xl font-extrabold mb-4 uppercase tracking-wider">
+                    Manual de Treinamento ISO 9001:2015
+                </h1>
+                <p class="text-3xl font-light opacity-80 mt-2">
+                    Sistema de Gestão da Qualidade
+                </p>
+                <p class="text-xl font-medium mt-16">
+                    Treinamento Interno Corporativo
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 1: Objetivo e Público Alvo -->
+        <section id="slide-1" class="slide" data-title="Apresentação e Objetivo">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-gray-200 pb-3">Apresentação e Objetivo</h2>
+
+                <div class="grid md:grid-cols-2 gap-12 flex-grow">
+                    <div class="flex flex-col">
+                        <div class="flex items-center text-3xl font-semibold mb-4 text-primary">
+                            <script>document.write(document.getElementById('icon-target').outerHTML.replace(/style="display: none;"/g, 'class="icon icon-lg text-color-secondary"'))</script>
+                            Objetivo do Treinamento
+                        </div>
+                        <p class="text-lg text-color-text leading-relaxed">
+                            Este manual de treinamento tem como **objetivo fornecer orientações e informações necessárias** para garantir que nossos colaboradores compreendam e estejam em conformidade com os requisitos da **ISO 9001:2015**, bem como para **promover uma cultura de qualidade** em nossa empresa de contabilidade.
+                        </p>
+                        <p class="text-sm italic mt-4 text-gray-500">
+                            Fonte: Item 1.0 do Manual.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="flex items-center text-3xl font-semibold mb-4 text-primary">
+                            <script>document.write(document.getElementById('icon-users').outerHTML.replace(/style="display: none;"/g, 'class="icon icon-lg text-color-secondary"'))</script>
+                            Público-Alvo
+                        </div>
+                        <ul class="text-lg text-color-text leading-relaxed list-style-disc">
+                            <li>Colaboradores e novos colaboradores.</li>
+                            <li>Em sua emissão inicial e revisões, deve ser repassado a **todos** os colaboradores.</li>
+                        </ul>
+                        <p class="text-lg font-medium mt-6 text-primary">
+                            Importância da ISO 9001:2015:
+                        </p>
+                        <p class="text-lg text-color-text leading-relaxed">
+                            É a base para a gestão da qualidade, essencial para a eficiência operacional, aumento da satisfação e confiança do cliente em serviços de contabilidade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Conteúdo Programático -->
+        <section id="slide-2" class="slide" data-title="Conteúdo Programático">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-gray-200 pb-3">Conteúdo Programático</h2>
+
+                <div class="grid md:grid-cols-2 gap-12 flex-grow">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-color-primary mb-4">Itens Principais e Conscientização</h3>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>Introdução a ISO 9001:2015 e sua importância no fornecimento de serviços de contabilidade.</li>
+                            <li>Política da Qualidade.</li>
+                            <li>Treinamentos específicos com relação aos procedimentos e processos aplicados à sua função.</li>
+                        </ul>
+
+                        <h3 class="text-2xl font-semibold text-color-primary mt-8 mb-4">Carga Horária (CH)</h3>
+                        <p class="text-lg text-color-text leading-relaxed mb-4">
+                            **Treinamentos neste manual (Gerais):** Mínimo de 01h e 30min (uma hora e trinta minutos).
+                        </p>
+                        <p class="text-lg text-color-text leading-relaxed">
+                            **Treinamentos de Procedimentos/Processos (Específicos):** Mínimo de 30 minutos para cada processo ou procedimento.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold text-color-primary mb-4">Responsabilidade dos Instrutores</h3>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>Devem ser aplicados pelos **supervisores diretos** de cada filial da R&R Contas.</li>
+                            <li>Em caso de necessidade de capacidade técnica específica, um especialista da área (interno ou externo) pode ser contratado.</li>
+                        </ul>
+                        <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg">
+                            <p class="font-bold text-yellow-700">Atenção à Eficácia</p>
+                            <p class="text-sm text-yellow-800 mt-1">
+                                A eficácia deverá ser atestada após o período mínimo de **01 mês** para garantir a compreensão. Em caso de ineficácia, um plano de ação deverá ser montado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: TREINAMENTO 01 - Conteúdo -->
+        <section id="slide-3" class="slide" data-title="Treinamento 01 - Introdução">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3 flex items-center">
+                    <span class="text-color-secondary mr-3 font-extrabold">01</span> Treinamento – Introdução à ISO 9001:2015
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-10 flex-grow">
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4">O que é a ISO 9001:2015?</h3>
+                        <p class="text-lg text-color-text leading-relaxed mb-4">
+                            É uma **norma internacional** que estabelece os requisitos para um Sistema de Gestão da Qualidade (SGQ) em uma organização. É parte da norma ISO 9000, focada em padrões de gestão da qualidade e melhoria contínua.
+                        </p>
+
+                        <h3 class="text-2xl font-bold text-color-primary mb-4 mt-6">A Importância da ISO</h3>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>Melhora a eficiência operacional.</li>
+                            <li>Aumenta a satisfação do cliente.</li>
+                            <li>Promove a melhoria contínua.</li>
+                            <li>Aumenta a confiança do cliente.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4">Conteúdo Programático (1h)</h3>
+                        <ul class="text-xl font-medium text-color-text leading-loose list-style-decimal">
+                            <li><span class="font-bold">Parte 1:</span> Introdução a ISO 9001:2015 (25 min)</li>
+                            <li><span class="font-bold">Parte 2:</span> Aplicação da ISO nos serviços de contabilidade (15 min)</li>
+                            <li><span class="font-bold">Parte 3:</span> Estudos de caso (10 min)</li>
+                            <li><span class="font-bold">Parte 4:</span> Perguntas e discussões (10 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Princípios da Qualidade (1-6) -->
+        <section id="slide-4" class="slide" data-title="Princípios da Gestão da Qualidade">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3">Princípios da Gestão da Qualidade (1 a 6)</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-color-text flex-grow">
+                    <!-- Princípio 1 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">1.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Foco no cliente</h4>
+                        <p class="text-base">Entender as necessidades e expectativas dos clientes e trabalhar para atendê-las de forma eficaz.</p>
+                    </div>
+
+                    <!-- Princípio 2 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">2.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Liderança</h4>
+                        <p class="text-base">O comprometimento da alta administração é fundamental para o sucesso de um SGQ.</p>
+                    </div>
+
+                    <!-- Princípio 3 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">3.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Envolvimento das Pessoas</h4>
+                        <p class="text-base">Todos os envolvidos devem estar engajados no processo, participando ativamente do crescimento e melhoria do SGQ.</p>
+                    </div>
+
+                    <!-- Princípio 4 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">4.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Abordagem de processos</h4>
+                        <p class="text-base">Entender e controlar os processos que afetam a qualidade dos produtos ou serviços.</p>
+                    </div>
+
+                    <!-- Princípio 5 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">5.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Melhoria contínua</h4>
+                        <p class="text-base">Estabelecer processos para monitorar, medir, analisar e melhorar regularmente o SGQ.</p>
+                    </div>
+
+                    <!-- Princípio 6 -->
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                        <span class="text-4xl font-extrabold text-color-secondary">6.</span>
+                        <h4 class="text-xl font-bold text-color-primary mb-2">Tomada de decisões baseada em evidência</h4>
+                        <p class="text-base">Todo processo deve ser comprovado por meio de registros para análise assertiva da evolução dos serviços.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Aplicação e Benefícios -->
+        <section id="slide-5" class="slide" data-title="Aplicação Prática e Benefícios">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-gray-200 pb-3">Aplicação Prática na Contabilidade</h2>
+
+                <div class="grid md:grid-cols-2 gap-12 flex-grow">
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4">ISO 9001:2015 na Contabilidade</h3>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>**Documentação de processos contábeis:** Padroniza serviços e identifica pontos de melhoria, tornando o serviço qualificado.</li>
+                            <li>**Monitoramento da qualidade:** Fiscalização mais eficaz na preparação de relatórios financeiros, diminuindo falhas.</li>
+                            <li>**Atendimento às expectativas:** Foco na satisfação do cliente, onde prazo e qualidade trabalham juntos.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4 flex items-center">
+                            <script>document.write(document.getElementById('icon-check').outerHTML.replace(/style="display: none;"/g, 'class="icon icon-lg text-green-600"'))</script>
+                            Benefícios da Implementação
+                        </h3>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>Maior confiabilidade por parte dos clientes.</li>
+                            <li>Satisfação dos clientes aprimorada.</li>
+                            <li>Redução dos erros e retrabalhos.</li>
+                            <li>Melhoria da eficiência operacional.</li>
+                        </ul>
+                        <div class="mt-8">
+                            <h4 class="text-xl font-semibold text-color-secondary mb-2">Estudo de Caso</h4>
+                            <p class="text-lg text-color-text">
+                                R&R e seu sucesso nos quase **10 anos de certificação ISO 9001:2015.**
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: TREINAMENTO 02 - Política da Qualidade -->
+        <section id="slide-6" class="slide" data-title="Política da Qualidade R&R Contas">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3 flex items-center">
+                    <span class="text-color-secondary mr-3 font-extrabold">02</span> Treinamento – Política da Qualidade (40 min)
+                </h2>
+
+                <div class="flex-grow">
+                    <h3 class="text-2xl font-bold text-color-primary mb-4">O que é a Política da Qualidade?</h3>
+                    <p class="text-lg text-color-text leading-relaxed mb-6">
+                        É a **declaração formal** emitida pela alta direção que estabelece o compromisso da empresa com a qualidade e descreve as diretrizes gerais. Serve como **documento sensibilizador**, orientando todos os níveis e ajudando a criar a cultura da qualidade.
+                    </p>
+
+                    <h3 class="text-3xl font-extrabold text-color-secondary mb-4 mt-6">Política da Qualidade da R&R Contas</h3>
+                    <div class="quality-policy-box">
+                        <p class="policy-text">
+                            "Fornecer serviços de contabilidade e consultoria a empresas comercial, industrial, agronegócio, prestadoras de serviços e entidades do terceiro setor, **garantindo a satisfação dos clientes**, qualificando nossos colaboradores, proporcionando a união da equipe e a **melhoria contínua** do sistema de gestão."
+                        </p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-color-primary mb-4 mt-8">Objetivos da Qualidade</h3>
+                    <ol class="text-lg text-color-text leading-loose list-style-decimal">
+                        <li class="font-bold">Qualificar nossos colaboradores.</li>
+                        <li class="font-bold">Superar o grau de satisfação dos clientes.</li>
+                        <li class="font-bold">Manter a excelência na execução dos serviços.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: Treinamentos Específicos -->
+        <section id="slide-7" class="slide" data-title="Treinamentos Específicos">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-gray-200 pb-3">Treinamentos Específicos por Função</h2>
+                <p class="text-lg text-color-text mb-4">
+                    Treinamentos específicos para novos colaboradores com relação ao seu cargo/função. Carga Horária: **30 min por procedimento ou processo** (varia de acordo com a demanda).
+                </p>
+
+                <div class="table-responsive flex-grow mt-4">
+                    <table class="w-full training-table text-color-text rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="w-1/4">Função</th>
+                                <th class="w-2/4">Treinamentos Aplicáveis (Mapas de Processos - MP)</th>
+                                <th class="w-1/4">Responsável pelo Treinamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Coordenador de Célula/Lider de Dupla</td>
+                                <td>MP.01, MP.02, MP.03, MP.04, MP.07, MP.10, MP.13, MP.14, MP.15, MP.16. (Conhecimento) + MP.05 e MP.06. (Treinado)</td>
+                                <td>Coordenador da Qualidade</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Auxiliar de Departamento Pessoal</td>
+                                <td>MP.01, MP.06.</td>
+                                <td>Coordenador de Célula/Lider de Dupla</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Gerente Executivo</td>
+                                <td>MP.02, MP.08, MP.17*, MP.18**.</td>
+                                <td>Consultores</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Recepcionista</td>
+                                <td>MP.02.</td>
+                                <td>Consultores</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Auxiliar de Contabilidade* / Contador*</td>
+                                <td>MP.03, MP.04, MP.07.</td>
+                                <td>Coordenador de Célula/Lider de Dupla</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Coordenador da Qualidade</td>
+                                <td>Conhecimento em todos os Mapas + Treinado em MP.05, MP.11, MP.12.</td>
+                                <td>Consultores</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Auxiliar de Escritório</td>
+                                <td>MP.06.</td>
+                                <td>Coordenador de Célula/Lider de Dupla</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Gerente de RH</td>
+                                <td>MP.09.</td>
+                                <td>Consultores</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Assistente de Marketing</td>
+                                <td>MP.10.</td>
+                                <td>Gestor de Marketing</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Diretor Administrativo</td>
+                                <td>MP.11, MP.12.</td>
+                                <td>Coordenador da Qualidade</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Estagiário Contábil</td>
+                                <td>MP.13, MP.14.</td>
+                                <td>Coordenador de Célula/Lider de Dupla</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Estagiário Setor Pessoal</td>
+                                <td>MP.15, MP.16.</td>
+                                <td>Coordenador de Célula/Lider de Dupla</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs italic mt-4 text-gray-500">
+                    *Treinamentos para esses cargos aplicados de acordo com a função exercida.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: Avaliação e Eficácia -->
+        <section id="slide-8" class="slide" data-title="Avaliação e Eficácia">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3 flex items-center">
+                    Avaliação e Eficácia dos Treinamentos
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-12 flex-grow">
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4 flex items-center">
+                            <svg class="icon icon-lg text-color-secondary mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 10 11 12"/></svg>
+                            Como é Medida a Eficácia
+                        </h3>
+                        <p class="text-lg text-color-text leading-relaxed">
+                            A eficácia de cada treinamento aplicado deverá ser **atestada após o período mínimo de 01 mês**.
+                        </p>
+                        <p class="text-lg font-semibold text-color-text mt-4">
+                            Responsabilidade da Avaliação:
+                        </p>
+                        <ul class="text-lg text-color-text leading-loose list-style-disc">
+                            <li>Avaliada pelo **supervisor imediato**.</li>
+                            <li>Informações registradas no documento do SGQ: <strong>"Reg. 06 Lista de Presença em Treinamento"</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4 flex items-center">
+                            <svg class="icon icon-lg text-color-secondary mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            Acompanhamento e Plano de Ação
+                        </h3>
+                        <p class="text-lg text-color-text leading-relaxed">
+                            É crucial garantir que as informações dos treinamentos foram entendidas pelo funcionário treinado.
+                        </p>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg mt-4">
+                            <p class="font-bold text-red-700">Em caso de Ineficácia:</p>
+                            <p class="text-lg text-red-800 mt-1">
+                                Um **plano de ação** deverá ser montado para analisar as possíveis falhas no processo de treinamento e garantir a correção e aprendizado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: Encerramento -->
+        <section id="slide-9" class="slide" data-title="Encerramento">
+            <div class="slide-content flex flex-col items-center justify-center text-center">
+                <h2 class="text-6xl font-extrabold text-color-primary mb-6">
+                    Obrigado!
+                </h2>
+                <p class="text-3xl font-light text-gray-700 max-w-3xl leading-relaxed">
+                    A cultura da qualidade é construída dia após dia com o **seu comprometimento**. Juntos, garantimos a excelência dos serviços da R&R Contas.
+                </p>
+
+                <div class="mt-12 p-6 bg-color-light-gray rounded-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold text-color-secondary mb-3">Perguntas e Discussões</h3>
+                    <p class="text-xl text-color-text">
+                        Este é o momento para sanar dúvidas e discutir a aplicação prática da ISO 9001:2015 em suas atividades.
+                    </p>
+                </div>
+
+                <div class="text-sm font-medium text-gray-400 mt-16">
+                    Fim da Apresentação
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Rodapé Fixo -->
+    <footer id="footer">
+        <div class="flex justify-between items-center max-w-6xl mx-auto">
+            <span>R&R Contas | Sistema de Gestão da Qualidade</span>
+            <span id="slide-indicator">Slide 1 de 10</span>
+        </div>
+    </footer>
+
+    <!-- Botões de Navegação (Opcional, Navegação principal é pelo teclado) -->
+    <button id="prev-slide" class="nav-arrow p-3 bg-color-secondary text-white rounded-full shadow-lg hover:bg-opacity-90 disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Slide Anterior">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button id="next-slide" class="nav-arrow p-3 bg-color-secondary text-white rounded-full shadow-lg hover:bg-opacity-90 disabled:opacity-30 disabled:cursor-not-allowed" aria-label="Próximo Slide">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevButton = document.getElementById('prev-slide');
+            const nextButton = document.getElementById('next-slide');
+            const indicator = document.getElementById('slide-indicator');
+            let currentSlideIndex = 0;
+
+            // Função para atualizar a visualização do slide
+            function updateSlide(newIndex) {
+                // Remove a classe 'active' do slide atual
+                slides[currentSlideIndex].classList.remove('active');
+
+                // Garante que o índice esteja dentro dos limites
+                if (newIndex < 0) {
+                    newIndex = 0;
+                } else if (newIndex >= slides.length) {
+                    newIndex = slides.length - 1;
+                }
+
+                currentSlideIndex = newIndex;
+
+                // Adiciona a classe 'active' ao novo slide
+                slides[currentSlideIndex].classList.add('active');
+
+                // Atualiza o indicador de slide e o estado dos botões
+                updateControls();
+            }
+
+            // Função para atualizar o estado dos botões e o indicador
+            function updateControls() {
+                prevButton.disabled = currentSlideIndex === 0;
+                nextButton.disabled = currentSlideIndex === slides.length - 1;
+                indicator.textContent = `Slide ${currentSlideIndex + 1} de ${slides.length}`;
+            }
+
+            // Navegação com setas do teclado
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight' || event.key === ' ') {
+                    if (currentSlideIndex < slides.length - 1) {
+                        updateSlide(currentSlideIndex + 1);
+                    }
+                } else if (event.key === 'ArrowLeft') {
+                    if (currentSlideIndex > 0) {
+                        updateSlide(currentSlideIndex - 1);
+                    }
+                }
+            });
+
+            // Navegação com botões
+            prevButton.addEventListener('click', () => {
+                if (currentSlideIndex > 0) {
+                    updateSlide(currentSlideIndex - 1);
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                if (currentSlideIndex < slides.length - 1) {
+                    updateSlide(currentSlideIndex + 1);
+                }
+            });
+
+            // Inicialização: Exibe o primeiro slide e atualiza os controles
+            updateSlide(0);
+        });
+    </script>
+</body>
+</html>

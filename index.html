@@ -27,7 +27,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            /* Garante que o conteúdo não deslize para fora da tela */
         }
         .slide {
             width: 100%;
@@ -38,12 +37,12 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.5s ease-in-out; /* Transição suave */
-            padding: 4rem; /* Padding geral para o slide */
+            padding: 2rem; /* Padding reduzido para compensar o padding interno do content */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: white;
+            background-color: var(--color-light-gray); /* Fundo sutil */
         }
         .slide.active {
             opacity: 1;
@@ -51,20 +50,26 @@
             z-index: 10;
         }
 
-        /* Layout do conteúdo do slide */
+        /* Layout do conteúdo do slide (Aprimorado com sombras) */
         .slide-content {
             max-width: 1200px;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 2rem 0;
+            
+            /* Melhorias Visuais */
+            background-color: white; 
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra mais visível */
+            padding: 3rem 4rem; 
+            overflow-y: auto; /* Permite scroll se o conteúdo for muito longo */
         }
 
         /* Estilo da Tabela */
         .table-responsive {
             overflow-x: auto;
-            max-height: 500px; /* Limita a altura da tabela */
+            max-height: 500px; 
         }
         .training-table th, .training-table td {
             padding: 0.75rem 1.5rem;
@@ -78,18 +83,23 @@
             position: sticky;
             top: 0;
         }
+        .training-table tr:hover {
+             background-color: #f0f8ff; /* Destaque ao passar o mouse na linha */
+        }
 
-        /* Estilos específicos para a capa */
+        /* Estilos específicos para a capa (Melhoria no gradiente e logo) */
         #slide-0 {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #364f6b 100%);
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1c527e 50%, #364f6b 100%);
             color: white;
             justify-content: center;
         }
         #slide-0 .logo-placeholder {
             border: 4px solid white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1.5rem;
+            padding: 1.5rem 3rem; /* Ligeiramente maior */
+            border-radius: 12px;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); /* Efeito de brilho */
         }
 
         /* Estilo de Destaque para Política da Qualidade */
@@ -97,28 +107,47 @@
             background-color: #E6F0F6; /* Azul muito claro */
             border-left: 6px solid var(--color-secondary);
             padding: 1.5rem;
-            border-radius: 4px;
-            margin-top: 1rem;
+            border-radius: 8px; /* Cantos mais arredondados */
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         .policy-text {
-            font-size: 1.1rem;
+            font-size: 1.15rem; /* Fonte ligeiramente maior */
             font-style: italic;
             font-weight: 500;
             color: var(--color-primary);
         }
 
-        /* Rodapé fixo */
+        /* Rodapé fixo (Mais grosso e com mais destaque) */
         #footer {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #0A3D62; /* Azul Escuro */
+            background-color: #0A3D62;
             color: white;
-            padding: 0.5rem 2rem;
-            font-size: 0.875rem;
+            padding: 0.75rem 2rem; 
+            font-size: 0.9rem;
             z-index: 100;
         }
+
+        /* Barra de Progresso (NOVO) */
+        #progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #e2e8f0; 
+            z-index: 1000;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--color-secondary); 
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transição mais suave e dinâmica */
+        }
+
 
         /* Ícone SVG (usando Lucide Icons style) */
         .icon {
@@ -137,7 +166,7 @@
             margin-right: 0.5rem;
         }
 
-        /* Elementos interativos (opcional) - Setas de navegação */
+        /* Elementos interativos (Setas de navegação aprimoradas) */
         .nav-arrow {
             position: fixed;
             top: 50%;
@@ -145,34 +174,50 @@
             z-index: 50;
             cursor: pointer;
             padding: 1rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            opacity: 0.9;
+            background-color: rgba(0, 119, 182, 0.8); /* Azul semi-transparente */
+            transition: background-color 0.3s, transform 0.1s;
         }
         .nav-arrow:hover {
-            opacity: 1;
+            background-color: var(--color-secondary); /* Sólido no hover */
+            transform: translateY(-50%) scale(1.05); /* Pequeno efeito de zoom */
         }
-        #prev-slide { left: 1rem; }
-        #next-slide { right: 1rem; }
+        .nav-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        #prev-slide { 
+            left: 1rem; 
+            border-radius: 50%;
+        }
+        #next-slide { 
+            right: 1rem; 
+            border-radius: 50%;
+        }
 
-        /* Estilo para listas numeradas e não numeradas */
-        .list-style-decimal li {
-            list-style-type: decimal;
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
+        /* Efeito de hover para lista de conteúdo */
+        .list-item-hover-effect {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
         }
-        .list-style-disc li {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
+        .list-item-hover-effect:hover {
+            background-color: var(--color-light-gray);
+        }
+        /* Ajuste para o hover das divs de princípios */
+        .principle-box:hover {
+             border: 1px solid var(--color-secondary);
+             transform: translateY(-2px);
+             transition: all 0.2s;
         }
 
         /* Media Queries para responsividade em telas menores (mobile/tablet) */
         @media (max-width: 768px) {
             .slide {
-                padding: 2rem 1rem;
+                padding: 1rem;
             }
             .slide-content {
-                padding: 1rem 0;
+                padding: 2rem 1.5rem;
+                border-radius: 8px;
             }
             h1 {
                 font-size: 2rem !important;
@@ -201,7 +246,12 @@
     </style>
 </head>
 <body>
-
+    
+    <!-- Barra de Progresso (NOVO) -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+    
     <!-- Ícone Reutilizável de Confirmação (Check-Circle) -->
     <svg id="icon-check" class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -257,7 +307,7 @@
                             Objetivo do Treinamento
                         </div>
                         <p class="text-lg text-color-text leading-relaxed">
-                            Este manual de treinamento tem como **objetivo fornecer orientações e informações necessárias** para garantir que nossos colaboradores compreendam e estejam em conformidade com os requisitos da **ISO 9001:2015**, bem como para **promover uma cultura de qualidade** em nossa empresa de contabilidade.
+                            Este manual de treinamento tem como <strong>objetivo fornecer orientações e informações necessárias</strong> para garantir que nossos colaboradores compreendam e estejam em conformidade com os requisitos da <strong>ISO 9001:2015</strong>, bem como para <strong>promover uma cultura de qualidade</strong> em nossa empresa de contabilidade.
                         </p>
                         <p class="text-sm italic mt-4 text-gray-500">
                             Fonte: Item 1.0 do Manual.
@@ -270,8 +320,8 @@
                             Público-Alvo
                         </div>
                         <ul class="text-lg text-color-text leading-relaxed list-style-disc">
-                            <li>Colaboradores e novos colaboradores.</li>
-                            <li>Em sua emissão inicial e revisões, deve ser repassado a **todos** os colaboradores.</li>
+                            <li class="list-item-hover-effect">Colaboradores e novos colaboradores que irão compor o quadro de funcionários.</li>
+                            <li class="list-item-hover-effect">Em sua emissão inicial e revisões, deve ser repassado a <strong>todos</strong> os colaboradores, a fim de que estes tenham ciência do documento e do seu conteúdo.</li>
                         </ul>
                         <p class="text-lg font-medium mt-6 text-primary">
                             Importância da ISO 9001:2015:
@@ -292,31 +342,34 @@
                 <div class="grid md:grid-cols-2 gap-12 flex-grow">
                     <div>
                         <h3 class="text-2xl font-semibold text-color-primary mb-4">Itens Principais e Conscientização</h3>
+                        <p class="text-md italic text-gray-500 mb-4">
+                            Este manual foi elaborado levando em consideração o item <strong>2.1.1, do TERMO DE COMPROMISSO PARA NOVOS COLABORADORES ISO 9001 RR CONTAS</strong>.
+                        </p>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>Introdução a ISO 9001:2015 e sua importância no fornecimento de serviços de contabilidade.</li>
-                            <li>Política da Qualidade.</li>
-                            <li>Treinamentos específicos com relação aos procedimentos e processos aplicados à sua função.</li>
+                            <li class="list-item-hover-effect">Introdução a ISO 9001:2015 e sua importância no fornecimento de serviços de contabilidade.</li>
+                            <li class="list-item-hover-effect">Política da Qualidade.</li>
+                            <li class="list-item-hover-effect">Treinamentos específicos com relação aos procedimentos e processos aplicados a sua função que impactem diretamente nas atividades desenvolvidas.</li>
                         </ul>
 
                         <h3 class="text-2xl font-semibold text-color-primary mt-8 mb-4">Carga Horária (CH)</h3>
                         <p class="text-lg text-color-text leading-relaxed mb-4">
-                            **Treinamentos neste manual (Gerais):** Mínimo de 01h e 30min (uma hora e trinta minutos).
+                            <strong>Treinamentos neste manual (Gerais):</strong> Mínimo de 01h e 30min (uma hora e trinta minutos) para fixação e esclarecimento.
                         </p>
                         <p class="text-lg text-color-text leading-relaxed">
-                            **Treinamentos de Procedimentos/Processos (Específicos):** Mínimo de 30 minutos para cada processo ou procedimento.
+                            <strong>Treinamentos de Procedimentos/Processos (Específicos):</strong> Mínimo de 30 minutos para cada processo ou procedimento.
                         </p>
                     </div>
 
                     <div>
                         <h3 class="text-2xl font-semibold text-color-primary mb-4">Responsabilidade dos Instrutores</h3>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>Devem ser aplicados pelos **supervisores diretos** de cada filial da R&R Contas.</li>
-                            <li>Em caso de necessidade de capacidade técnica específica, um especialista da área (interno ou externo) pode ser contratado.</li>
+                            <li class="list-item-hover-effect">Devem ser aplicados pelos <strong>supervisores diretos</strong> de cada filial da R&R Contas.</li>
+                            <li class="list-item-hover-effect">Um especialista da área (interno ou externo) pode ser contratado, caso o treinamento solicite capacidade técnica.</li>
                         </ul>
                         <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg">
                             <p class="font-bold text-yellow-700">Atenção à Eficácia</p>
                             <p class="text-sm text-yellow-800 mt-1">
-                                A eficácia deverá ser atestada após o período mínimo de **01 mês** para garantir a compreensão. Em caso de ineficácia, um plano de ação deverá ser montado.
+                                A eficácia deverá ser atestada após o período mínimo de <strong>01 mês</strong> para garantir a compreensão. Em caso de ineficácia, um plano de ação deverá ser montado.
                             </p>
                         </div>
                     </div>
@@ -328,32 +381,32 @@
         <section id="slide-3" class="slide" data-title="Treinamento 01 - Introdução">
             <div class="slide-content">
                 <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3 flex items-center">
-                    <span class="text-color-secondary mr-3 font-extrabold">01</span> Treinamento – Introdução à ISO 9001:2015
+                    <span class="text-color-secondary mr-3 font-extrabold">01</span> Treinamento – Introdução à ISO 9001:2015 (CH: 1h)
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-10 flex-grow">
                     <div>
                         <h3 class="text-2xl font-bold text-color-primary mb-4">O que é a ISO 9001:2015?</h3>
                         <p class="text-lg text-color-text leading-relaxed mb-4">
-                            É uma **norma internacional** que estabelece os requisitos para um Sistema de Gestão da Qualidade (SGQ) em uma organização. É parte da norma ISO 9000, focada em padrões de gestão da qualidade e melhoria contínua.
+                            É uma <strong>norma internacional</strong> que estabelece os requisitos para um Sistema de Gestão da Qualidade (SGQ) em uma organização. Ela é parte da norma ISO 9000, que trata de padrões relacionados à gestão da qualidade e à melhoria contínua.
                         </p>
 
                         <h3 class="text-2xl font-bold text-color-primary mb-4 mt-6">A Importância da ISO</h3>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>Melhora a eficiência operacional.</li>
-                            <li>Aumenta a satisfação do cliente.</li>
-                            <li>Promove a melhoria contínua.</li>
-                            <li>Aumenta a confiança do cliente.</li>
+                            <li class="list-item-hover-effect">Ajuda a melhorar a eficiência operacional.</li>
+                            <li class="list-item-hover-effect">Aumenta a satisfação do cliente.</li>
+                            <li class="list-item-hover-effect">Promove a melhoria contínua.</li>
+                            <li class="list-item-hover-effect">Aumenta a confiança do cliente.</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 class="text-2xl font-bold text-color-primary mb-4">Conteúdo Programático (1h)</h3>
+                        <h3 class="text-2xl font-bold text-color-primary mb-4">Conteúdo Programático</h3>
                         <ul class="text-xl font-medium text-color-text leading-loose list-style-decimal">
-                            <li><span class="font-bold">Parte 1:</span> Introdução a ISO 9001:2015 (25 min)</li>
-                            <li><span class="font-bold">Parte 2:</span> Aplicação da ISO nos serviços de contabilidade (15 min)</li>
-                            <li><span class="font-bold">Parte 3:</span> Estudos de caso (10 min)</li>
-                            <li><span class="font-bold">Parte 4:</span> Perguntas e discussões (10 min)</li>
+                            <li class="list-item-hover-effect"><strong>Parte 1:</strong> Introdução a ISO 9001:2015</li>
+                            <li class="list-item-hover-effect"><strong>Parte 2:</strong> Aplicação da ISO nos serviços de contabilidade</li>
+                            <li class="list-item-hover-effect"><strong>Parte 3:</strong> Estudos de caso</li>
+                            <li class="list-item-hover-effect"><strong>Parte 4:</strong> Perguntas e discussões</li>
                         </ul>
                     </div>
                 </div>
@@ -367,45 +420,45 @@
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-color-text flex-grow">
                     <!-- Princípio 1 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">1.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Foco no cliente</h4>
-                        <p class="text-base">Entender as necessidades e expectativas dos clientes e trabalhar para atendê-las de forma eficaz.</p>
+                        <p class="text-base">A organização e seus colaboradores devem entender as necessidades e expectativas dos clientes e trabalharem para atendê-las de forma eficaz.</p>
                     </div>
 
                     <!-- Princípio 2 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">2.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Liderança</h4>
-                        <p class="text-base">O comprometimento da alta administração é fundamental para o sucesso de um SGQ.</p>
+                        <p class="text-base">A liderança e o comprometimento da alta administração são fundamentais para o sucesso de um SGQ.</p>
                     </div>
 
                     <!-- Princípio 3 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">3.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Envolvimento das Pessoas</h4>
-                        <p class="text-base">Todos os envolvidos devem estar engajados no processo, participando ativamente do crescimento e melhoria do SGQ.</p>
+                        <p class="text-base">Todos os envolvidos com o SGQ da empresa devem estar engajados no processo e participando ativamente do crescimento e melhoria do mesmo, assim criando um sistema cada vez mais sólido e eficiente.</p>
                     </div>
 
                     <!-- Princípio 4 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">4.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Abordagem de processos</h4>
-                        <p class="text-base">Entender e controlar os processos que afetam a qualidade dos produtos ou serviços.</p>
+                        <p class="text-base">A organização é incentivada a entender e controlar os processos que afetam a qualidade de seus produtos ou serviços.</p>
                     </div>
 
                     <!-- Princípio 5 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">5.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Melhoria contínua</h4>
-                        <p class="text-base">Estabelecer processos para monitorar, medir, analisar e melhorar regularmente o SGQ.</p>
+                        <p class="text-base">A ISO 9001:2015 enfatiza a importância da melhoria contínua. As organizações são obrigadas a estabelecer processos para monitorar, medir, analisar e melhorar regularmente seu SGQ.</p>
                     </div>
 
                     <!-- Princípio 6 -->
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition principle-box">
                         <span class="text-4xl font-extrabold text-color-secondary">6.</span>
                         <h4 class="text-xl font-bold text-color-primary mb-2">Tomada de decisões baseada em evidência</h4>
-                        <p class="text-base">Todo processo deve ser comprovado por meio de registros para análise assertiva da evolução dos serviços.</p>
+                        <p class="text-base">A norma solicita que todo processo e procedimento executado seja comprovado por meio de registros que possam ser analisados futuramente pela empresa, para assim conseguir ter uma análise assertiva da evolução dos serviços e traçar metas de desempenho.</p>
                     </div>
                 </div>
             </div>
@@ -420,9 +473,9 @@
                     <div>
                         <h3 class="text-2xl font-bold text-color-primary mb-4">ISO 9001:2015 na Contabilidade</h3>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>**Documentação de processos contábeis:** Padroniza serviços e identifica pontos de melhoria, tornando o serviço qualificado.</li>
-                            <li>**Monitoramento da qualidade:** Fiscalização mais eficaz na preparação de relatórios financeiros, diminuindo falhas.</li>
-                            <li>**Atendimento às expectativas:** Foco na satisfação do cliente, onde prazo e qualidade trabalham juntos.</li>
+                            <li class="list-item-hover-effect"><strong>Documentação de processos contábeis:</strong> Documentar as atividades como processo ou procedimento com objetivo de padronizar estes serviços e assim identificar pontos de melhora.</li>
+                            <li class="list-item-hover-effect"><strong>Monitoramento da qualidade:</strong> Com a padronização dos processos, a fiscalização dos serviços se torna mais eficaz, diminuindo a quantidade de falhas nos processos e consequentemente nos relatórios.</li>
+                            <li class="list-item-hover-effect"><strong>Atendimento às expectativas:</strong> Foco na satisfação do cliente, onde prazo e qualidade trabalham juntos. O melhor serviço oferecido dentro do tempo acordado aumenta a satisfação do cliente.</li>
                         </ul>
                     </div>
 
@@ -432,15 +485,15 @@
                             Benefícios da Implementação
                         </h3>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>Maior confiabilidade por parte dos clientes.</li>
-                            <li>Satisfação dos clientes aprimorada.</li>
-                            <li>Redução dos erros e retrabalhos.</li>
-                            <li>Melhoria da eficiência operacional.</li>
+                            <li class="list-item-hover-effect">Maior confiabilidade por parte dos clientes.</li>
+                            <li class="list-item-hover-effect">Satisfação dos clientes aprimorada.</li>
+                            <li class="list-item-hover-effect">Redução dos erros e retrabalhos.</li>
+                            <li class="list-item-hover-effect">Melhoria da eficiência operacional.</li>
                         </ul>
                         <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-color-secondary mb-2">Estudo de Caso</h4>
+                            <h4 class="text-xl font-semibold text-color-secondary mb-2">Estudo de Caso (Parte 3)</h4>
                             <p class="text-lg text-color-text">
-                                R&R e seu sucesso nos quase **10 anos de certificação ISO 9001:2015.**
+                                R&R e seu sucesso nos quase <strong>10 anos de certificação ISO 9001:2015.</strong>
                             </p>
                         </div>
                     </div>
@@ -452,27 +505,27 @@
         <section id="slide-6" class="slide" data-title="Política da Qualidade R&R Contas">
             <div class="slide-content">
                 <h2 class="text-4xl font-bold text-gray-800 mb-8 border-b-2 border-color-secondary pb-3 flex items-center">
-                    <span class="text-color-secondary mr-3 font-extrabold">02</span> Treinamento – Política da Qualidade (40 min)
+                    <span class="text-color-secondary mr-3 font-extrabold">02</span> Treinamento – Política da Qualidade (CH: 40 min)
                 </h2>
 
                 <div class="flex-grow">
-                    <h3 class="text-2xl font-bold text-color-primary mb-4">O que é a Política da Qualidade?</h3>
+                    <h3 class="text-2xl font-bold text-color-primary mb-4">O que é a Política da Qualidade? (Parte 1)</h3>
                     <p class="text-lg text-color-text leading-relaxed mb-6">
-                        É a **declaração formal** emitida pela alta direção que estabelece o compromisso da empresa com a qualidade e descreve as diretrizes gerais. Serve como **documento sensibilizador**, orientando todos os níveis e ajudando a criar a cultura da qualidade.
+                        É a <strong>declaração formal</strong> emitida pela alta direção que estabelece o compromisso da empresa com a qualidade e descreve as diretrizes gerais. Serve como <strong>documento sensibilizador</strong>, que orienta todos os níveis da organização e ajuda a criar a cultura da qualidade.
                     </p>
 
-                    <h3 class="text-3xl font-extrabold text-color-secondary mb-4 mt-6">Política da Qualidade da R&R Contas</h3>
+                    <h3 class="text-3xl font-extrabold text-color-secondary mb-4 mt-6">Política da Qualidade da R&R Contas (Parte 2)</h3>
                     <div class="quality-policy-box">
                         <p class="policy-text">
-                            "Fornecer serviços de contabilidade e consultoria a empresas comercial, industrial, agronegócio, prestadoras de serviços e entidades do terceiro setor, **garantindo a satisfação dos clientes**, qualificando nossos colaboradores, proporcionando a união da equipe e a **melhoria contínua** do sistema de gestão."
+                            "Fornecer serviços de contabilidade e consultoria a empresas comercial, industrial, agronegócio, prestadoras de serviços e entidades do terceiro setor, <strong>garantindo a satisfação dos clientes</strong>, qualificando nossos colaboradores, proporcionando a união da equipe e a <strong>melhoria contínua</strong> do sistema de gestão."
                         </p>
                     </div>
 
                     <h3 class="text-2xl font-bold text-color-primary mb-4 mt-8">Objetivos da Qualidade</h3>
                     <ol class="text-lg text-color-text leading-loose list-style-decimal">
-                        <li class="font-bold">Qualificar nossos colaboradores.</li>
-                        <li class="font-bold">Superar o grau de satisfação dos clientes.</li>
-                        <li class="font-bold">Manter a excelência na execução dos serviços.</li>
+                        <li class="list-item-hover-effect font-bold">Qualificar nossos colaboradores.</li>
+                        <li class="list-item-hover-effect font-bold">Superar o grau de satisfação dos clientes.</li>
+                        <li class="list-item-hover-effect font-bold">Manter a excelência na execução dos serviços.</li>
                     </ol>
                 </div>
             </div>
@@ -483,7 +536,7 @@
             <div class="slide-content">
                 <h2 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-gray-200 pb-3">Treinamentos Específicos por Função</h2>
                 <p class="text-lg text-color-text mb-4">
-                    Treinamentos específicos para novos colaboradores com relação ao seu cargo/função. Carga Horária: **30 min por procedimento ou processo** (varia de acordo com a demanda).
+                    Treinamentos específicos para novos colaboradores com relação ao seu cargo/função. Carga Horária: <strong>30 min por procedimento ou processo</strong> (varia de acordo com a demanda).
                 </p>
 
                 <div class="table-responsive flex-grow mt-4">
@@ -498,7 +551,7 @@
                         <tbody>
                             <tr>
                                 <td class="font-semibold">Coordenador de Célula/Lider de Dupla</td>
-                                <td>MP.01, MP.02, MP.03, MP.04, MP.07, MP.10, MP.13, MP.14, MP.15, MP.16. (Conhecimento) + MP.05 e MP.06. (Treinado)</td>
+                                <td>(Conhecimento em:) MP.01, MP.02, MP.03, MP.04, MP.07, MP.10, MP.13, MP.14, MP.15, MP.16. (Treinado em:) MP.05 e MP.06.</td>
                                 <td>Coordenador da Qualidade</td>
                             </tr>
                             <tr>
@@ -523,7 +576,7 @@
                             </tr>
                             <tr>
                                 <td class="font-semibold">Coordenador da Qualidade</td>
-                                <td>Conhecimento em todos os Mapas + Treinado em MP.05, MP.11, MP.12.</td>
+                                <td>(Conhecimento em:) Todos os Mapas. (Treinado em:) MP.05, MP.11, MP.12.</td>
                                 <td>Consultores</td>
                             </tr>
                             <tr>
@@ -538,6 +591,16 @@
                             </tr>
                             <tr>
                                 <td class="font-semibold">Assistente de Marketing</td>
+                                <td>MP.10.</td>
+                                <td>Gestor de Marketing</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Gestor de Marketing</td>
+                                <td>(Conhecimento em:) MP.10. (Treinado em:) MP.05 e MP.06.</td>
+                                <td>Coordenador da Qualidade</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Diretor Técnico</td>
                                 <td>MP.10.</td>
                                 <td>Gestor de Marketing</td>
                             </tr>
@@ -579,20 +642,20 @@
                             Como é Medida a Eficácia
                         </h3>
                         <p class="text-lg text-color-text leading-relaxed">
-                            A eficácia de cada treinamento aplicado deverá ser **atestada após o período mínimo de 01 mês**.
+                            A eficácia de cada treinamento aplicado deverá ser <strong>atestada após o período mínimo de 01 mês</strong>, a fim de garantir que as informações foram entendidas pelo funcionário treinado.
                         </p>
                         <p class="text-lg font-semibold text-color-text mt-4">
                             Responsabilidade da Avaliação:
                         </p>
                         <ul class="text-lg text-color-text leading-loose list-style-disc">
-                            <li>Avaliada pelo **supervisor imediato**.</li>
-                            <li>Informações registradas no documento do SGQ: <strong>"Reg. 06 Lista de Presença em Treinamento"</strong>.</li>
+                            <li class="list-item-hover-effect">Avaliada pelo <strong>supervisor imediato</strong>.</li>
+                            <li class="list-item-hover-effect">Informações registradas no documento do SGQ: <strong>"Reg. 06 Lista de Presença em Treinamento"</strong>.</li>
                         </ul>
                     </div>
 
                     <div>
                         <h3 class="text-2xl font-bold text-color-primary mb-4 flex items-center">
-                            <svg class="icon icon-lg text-color-secondary mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <svg class="icon icon-lg text-color-secondary mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                             Acompanhamento e Plano de Ação
                         </h3>
                         <p class="text-lg text-color-text leading-relaxed">
@@ -601,7 +664,7 @@
                         <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg mt-4">
                             <p class="font-bold text-red-700">Em caso de Ineficácia:</p>
                             <p class="text-lg text-red-800 mt-1">
-                                Um **plano de ação** deverá ser montado para analisar as possíveis falhas no processo de treinamento e garantir a correção e aprendizado.
+                                Um <strong>plano de ação</strong> deverá ser montado para <strong>analisar as possíveis falhas no processo de treinamento</strong> e garantir a correção e aprendizado.
                             </p>
                         </div>
                     </div>
@@ -616,11 +679,11 @@
                     Obrigado!
                 </h2>
                 <p class="text-3xl font-light text-gray-700 max-w-3xl leading-relaxed">
-                    A cultura da qualidade é construída dia após dia com o **seu comprometimento**. Juntos, garantimos a excelência dos serviços da R&R Contas.
+                    A cultura da qualidade é construída dia após dia com o <strong>seu comprometimento</strong>. Juntos, garantimos a excelência dos serviços da R&R Contas.
                 </p>
 
                 <div class="mt-12 p-6 bg-color-light-gray rounded-lg border border-gray-200">
-                    <h3 class="text-2xl font-bold text-color-secondary mb-3">Perguntas e Discussões</h3>
+                    <h3 class="text-2xl font-bold text-color-secondary mb-3">Perguntas e Discussões (Parte 3)</h3>
                     <p class="text-xl text-color-text">
                         Este é o momento para sanar dúvidas e discutir a aplicação prática da ISO 9001:2015 em suas atividades.
                     </p>
@@ -655,6 +718,8 @@
             const prevButton = document.getElementById('prev-slide');
             const nextButton = document.getElementById('next-slide');
             const indicator = document.getElementById('slide-indicator');
+            const progressBar = document.getElementById('progress-bar'); // NOVO
+
             let currentSlideIndex = 0;
 
             // Função para atualizar a visualização do slide
@@ -674,15 +739,19 @@
                 // Adiciona a classe 'active' ao novo slide
                 slides[currentSlideIndex].classList.add('active');
 
-                // Atualiza o indicador de slide e o estado dos botões
+                // Atualiza o indicador de slide, botões e barra de progresso
                 updateControls();
             }
 
-            // Função para atualizar o estado dos botões e o indicador
+            // Função para atualizar o estado dos botões, o indicador e a barra de progresso
             function updateControls() {
                 prevButton.disabled = currentSlideIndex === 0;
                 nextButton.disabled = currentSlideIndex === slides.length - 1;
                 indicator.textContent = `Slide ${currentSlideIndex + 1} de ${slides.length}`;
+                
+                // NOVO: Calcula e atualiza a barra de progresso
+                const progress = ((currentSlideIndex + 1) / slides.length) * 100;
+                progressBar.style.width = `${progress}%`;
             }
 
             // Navegação com setas do teclado
